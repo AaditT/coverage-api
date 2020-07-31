@@ -216,7 +216,7 @@ def v2(lat, lon):
         index = queries.index(query)
         googlenews.search(query)
         results = googlenews.result()
-        for i in range(10):
+        for i in range(3):
             urls[index].append(results[i]['link'])
             extractive_scores[index].append(lavaa.lavaa_extractive(query, results[i]['link']))
             abstractive_scores[index].append(lavaa.lavaa_abstractive(query, results[i]['link']))
