@@ -1,4 +1,4 @@
-docs = """
+api_docs = """
 <h1> COVerage RESTful API </h1>
 
 <h2> Welcome!
