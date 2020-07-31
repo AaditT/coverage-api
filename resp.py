@@ -11,6 +11,5 @@ def get_location_data(lat, longitude):
         coordinates = (lat, longitude)
         results = rg.search(coordinates,mode=1)
         return results[0]['name'], results[0]['cc']
-
     return fips_json.get('results')[0].get('county_name')
-print(get_location_data(51.5074, -0.1278))
+# print(get_location_data(51.5074, -0.1278))
