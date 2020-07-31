@@ -6,6 +6,7 @@
 
 Version 1 is optimized for speed.  
 Returns JSON object in following format  
+`
 {
         "lat": lat,
         "lon": lon,
@@ -31,6 +32,7 @@ Returns JSON object in following format
             },
         },
     }
+    `
 
 #### API v2
 
