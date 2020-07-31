@@ -34,8 +34,3 @@ def lavaa_abstractive(query, url):
         if word in query_words or word in syn:
             lavaa += 1
     return lavaa/text_words_len
-
-url = "https://www.cnn.com/2020/07/30/us/schools-reopening-district-plans/index.html"
-query = "schools reopening plan"
-print(lavaa_extractive(query, url))
-print(lavaa_abstractive(query, url))

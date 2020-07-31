@@ -5,7 +5,6 @@ from datetime import datetime as dt
 import datetime
 from resp import *
 import lavaa
-from api_docs import api_docs
 
 @app.route('/')
 def home():
