@@ -4,3 +4,6 @@ GoogleNews
 datetime
 newspaper3k
 nltk
+reverse_geocoder # https://github.com/thampiman/reverse-geocoder
+numpy
+scipy
