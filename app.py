@@ -215,6 +215,9 @@ def v2(lat, lon):
 
     for query in queries:
         index = queries.index(query)
+        googlenews = GoogleNews()
+        googlenews.setlang('en')
+        googlenews = GoogleNews(start=week_ago_date,end=today_date)
         googlenews.search(query)
         results = googlenews.result()
         for i in range(2):
@@ -300,6 +303,9 @@ def v3(county, state):
 
     for query in queries:
         index = queries.index(query)
+        googlenews = GoogleNews()
+        googlenews.setlang('en')
+        googlenews = GoogleNews(start=week_ago_date,end=today_date)
         googlenews.search(query)
         results = googlenews.result()
         for i in range(10):
@@ -352,6 +358,9 @@ def v99(query):
     googlenews = GoogleNews(start=week_ago_date,end=today_date)
 
     googlenews.search(query)
+    googlenews = GoogleNews()
+    googlenews.setlang('en')
+    googlenews = GoogleNews(start=week_ago_date,end=today_date)
     results = googlenews.result()
     for i in range(10):
         urls.append(results[i]['link'])
