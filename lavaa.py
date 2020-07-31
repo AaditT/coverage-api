@@ -5,7 +5,10 @@ from nltk.corpus import wordnet   #Import wordnet from the NLTK
 
 def lavaa_extractive(query, url):
     lavaa = 0
-    text = (fulltext(requests.get(url).text)).replace("\n", " ")
+    try:
+        text = (fulltext(requests.get(url).text)).replace("\n", " ")
+    except:
+        return 0
     query_words = query.split()
     text_words = text.split()
     text_words_len = len(text_words)
