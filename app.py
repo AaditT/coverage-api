@@ -14,6 +14,7 @@ def home():
     <h2> Welcome!
 
     <h4> API v1 </h4>
+    <code> /api/v1/<lat>/<lon> </code>
       <p>
         Version 1 is optimized for speed. <br>
         Returns JSON object in following format <br>
@@ -46,6 +47,7 @@ def home():
       </p>
 
       <h4> API v2 </h4>
+      <code> /api/v2/<lat>/<lon> </code>
       <p>
         Version 2 is optimized for querying metrics. <br>
         Returns JSON object in following format <br>
