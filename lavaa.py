@@ -1,7 +1,7 @@
 from newspaper import fulltext
 import requests
 from nltk.corpus import wordnet   #Import wordnet from the NLTK
-
+from docs import docs
 
 def lavaa_extractive(query, url):
     lavaa = 0
