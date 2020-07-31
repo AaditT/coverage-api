@@ -1,95 +1,86 @@
-# coverage-api
-COVerage RESTful API
+# COVerage RESTful API "coverage-api"
 
-    <h1> COVerage RESTful API </h1>
+## Welcome!
 
-    <h2> Welcome!
+#### API v1
 
-    <h4> API v1 </h4>
-      <p>
-        Version 1 is optimized for speed. <br>
-        Returns JSON object in following format <br>
-        <code>
-          { <br>
-           &nbsp; "lat": lat, <br>
-          &nbsp; "lon": lon, <br>
-          &nbsp; "time": { <br>
-           &nbsp; &nbsp; "timestamp": now, <br>
-        	&nbsp; }, <br>
-          &nbsp; "data": { <br>
-           &nbsp; &nbsp; "policies": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "education": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "biology": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "economy": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "statistics": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-        	&nbsp; }, <br>
-        	}
-        </code>
-      </p>
+Version 1 is optimized for speed.  
+Returns JSON object in following format  
+`{  
+  "lat": lat,  
+  "lon": lon,  
+  "time": {  
+    "timestamp": now,  
+  },  
+  "data": {  
+    "policies": {  
+      "urls": [url1, url2, url3, etc],  
+    },  
+    "education": {  
+      "urls": [url1, url2, url3, etc],  
+    },  
+    "biology": {  
+      "urls": [url1, url2, url3, etc],  
+    },  
+    "economy": {  
+      "urls": [url1, url2, url3, etc],  
+    },  
+    "statistics": {  
+      "urls": [url1, url2, url3, etc],  
+    },  
+  },  
+}`
 
-      <h4> API v2 </h4>
-      <p>
-        Version 2 is optimized for querying metrics. <br>
-        Returns JSON object in following format <br>
-        <code>
-          { <br>
-          &nbsp; "success": True, <br>
-           &nbsp; "lat": lat, <br>
-          &nbsp; "lon": lon, <br>
-          &nbsp; "time": { <br>
-           &nbsp; &nbsp; "timestamp": now, <br>
-        	&nbsp; }, <br>
-          &nbsp; "data": { <br>
-           &nbsp; &nbsp; "policies": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "education": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "biology": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "economy": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-           &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "statistics": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-        	&nbsp; }, <br>
-        	}
-        </code>
-      </p>
+#### API v2
+
+Version 2 is optimized for querying metrics.  
+Returns JSON object in following format  
+`{  
+  "success": True,  
+  "lat": lat,  
+  "lon": lon,  
+  "time": {  
+    "timestamp": now,  
+  },  
+  "data": {  
+    "policies": {  
+      "urls": [url1, url2, url3, etc],  
+      "scores": {  
+        "extractive": [score1, score2, score3, etc],  
+        "abstractive": [score1, score2, score3, etc],  
+      }  
+    },  
+    "education": {  
+      "urls": [url1, url2, url3, etc],  
+      "scores": {  
+        "extractive": [score1, score2, score3, etc],  
+        "abstractive": [score1, score2, score3, etc],  
+      }  
+    },  
+    "biology": {  
+      "urls": [url1, url2, url3, etc],  
+      "scores": {  
+        "extractive": [score1, score2, score3, etc],  
+        "abstractive": [score1, score2, score3, etc],  
+      }  
+    },  
+    "economy": {  
+      "urls": [url1, url2, url3, etc],  
+      "scores": {  
+        "extractive": [score1, score2, score3, etc],  
+        "abstractive": [score1, score2, score3, etc],  
+      }  
+      "scores": {  
+        "extractive": [score1, score2, score3, etc],  
+        "abstractive": [score1, score2, score3, etc],  
+      }  
+    },  
+    "statistics": {  
+      "urls": [url1, url2, url3, etc],  
+      "scores": {  
+        "extractive": [score1, score2, score3, etc],  
+        "abstractive": [score1, score2, score3, etc],  
+      }  
+    },  
+  },  
+}`
