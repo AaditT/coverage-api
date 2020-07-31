@@ -119,29 +119,6 @@ def docs():
       </p>
 
     """
-@app.route('/api/v99/<query>')
-def v99(query):
-    query = query
-    urls = []
-
-    now = dt.now()
-    today_date = now.strftime("%m/%d/%Y")
-    week_ago_date = (now - datetime.timedelta(days = 7)).strftime("%m/%d/%Y")
-
-    googlenews = GoogleNews()
-    googlenews.setlang('en')
-    googlenews = GoogleNews(start=week_ago_date,end=today_date)
-
-    googlenews.search(query)
-    results = googlenews.result()
-    for i in range(10):
-        urls.append(results[i]['link'])
-    success_string = "True"
-    return {
-        "success": success_string,
-        "time": {"timestamp": now,},
-        "data": {"urls": urls},
-    }
 
 
 
@@ -207,67 +184,6 @@ def v1(lat, lon):
         },
     }
 
-@app.route('/api/v3/<county>/<state>')
-def v3(county, state):
-
-    location = (county + ", " + state)
-
-    urls = [[],[],[],[],[]]
-
-    now = dt.now()
-    today_date = now.strftime("%m/%d/%Y")
-    week_ago_date = (now - datetime.timedelta(days = 7)).strftime("%m/%d/%Y")
-
-    googlenews = GoogleNews()
-    googlenews.setlang('en')
-    googlenews = GoogleNews(start=week_ago_date,end=today_date)
-
-    categories = ["policies", "education", "biology", "economy", "statistics"]
-    queries = [
-        str(location) + " COVID-19 " + categories[0] + " news",
-        str(location) + " COVID-19 " + categories[1] + " news",
-        str(location) + " COVID-19 " + categories[2] + " news",
-        str(location) + " COVID-19 " + categories[3] + " news",
-        str(location) + " COVID-19 " + categories[4] + " news"
-    ]
-
-    for query in queries:
-        index = queries.index(query)
-        googlenews.search(query)
-        results = googlenews.result()
-        for i in range(10):
-            urls[index].append(results[i]['link'])
-
-
-    success_string = "True"
-
-
-
-    return {
-        "county": county,
-        "state": state,
-        "success": success_string,
-        "time": {
-            "timestamp": now,
-        },
-        "data": {
-            "policies": {
-                "urls": urls[0],
-            },
-            "education": {
-                "urls": urls[1],
-            },
-            "biology": {
-                "urls": urls[2],
-            },
-            "economy": {
-                "urls": urls[3],
-            },
-            "statistics": {
-                "urls": urls[4],
-            },
-        },
-    }
 
 @app.route('/api/v2/<lat>/<lon>')
 def v2(lat, lon):
@@ -356,6 +272,94 @@ def v2(lat, lon):
         },
     }
 
+
+@app.route('/api/v3/<county>/<state>')
+def v3(county, state):
+
+    location = (county + ", " + state)
+
+    urls = [[],[],[],[],[]]
+
+    now = dt.now()
+    today_date = now.strftime("%m/%d/%Y")
+    week_ago_date = (now - datetime.timedelta(days = 7)).strftime("%m/%d/%Y")
+
+    googlenews = GoogleNews()
+    googlenews.setlang('en')
+    googlenews = GoogleNews(start=week_ago_date,end=today_date)
+
+    categories = ["policies", "education", "biology", "economy", "statistics"]
+    queries = [
+        str(location) + " COVID-19 " + categories[0] + " news",
+        str(location) + " COVID-19 " + categories[1] + " news",
+        str(location) + " COVID-19 " + categories[2] + " news",
+        str(location) + " COVID-19 " + categories[3] + " news",
+        str(location) + " COVID-19 " + categories[4] + " news"
+    ]
+
+    for query in queries:
+        index = queries.index(query)
+        googlenews.search(query)
+        results = googlenews.result()
+        for i in range(10):
+            urls[index].append(results[i]['link'])
+
+
+    success_string = "True"
+
+
+
+    return {
+        "county": county,
+        "state": state,
+        "success": success_string,
+        "time": {
+            "timestamp": now,
+        },
+        "data": {
+            "policies": {
+                "urls": urls[0],
+            },
+            "education": {
+                "urls": urls[1],
+            },
+            "biology": {
+                "urls": urls[2],
+            },
+            "economy": {
+                "urls": urls[3],
+            },
+            "statistics": {
+                "urls": urls[4],
+            },
+        },
+    }
+
+
+
+@app.route('/api/v99/<query>')
+def v99(query):
+    query = query
+    urls = []
+
+    now = dt.now()
+    today_date = now.strftime("%m/%d/%Y")
+    week_ago_date = (now - datetime.timedelta(days = 7)).strftime("%m/%d/%Y")
+
+    googlenews = GoogleNews()
+    googlenews.setlang('en')
+    googlenews = GoogleNews(start=week_ago_date,end=today_date)
+
+    googlenews.search(query)
+    results = googlenews.result()
+    for i in range(10):
+        urls.append(results[i]['link'])
+    success_string = "True"
+    return {
+        "success": success_string,
+        "time": {"timestamp": now,},
+        "data": {"urls": urls},
+    }
 
 
 if __name__ == '__main__':
