@@ -133,9 +133,7 @@ def v1(lat, lon):
     today_date = now.strftime("%m/%d/%Y")
     week_ago_date = (now - datetime.timedelta(days = 7)).strftime("%m/%d/%Y")
 
-    googlenews = GoogleNews()
-    googlenews.setlang('en')
-    googlenews = GoogleNews(start=week_ago_date,end=today_date)
+
 
     categories = ["policies", "education", "biology", "economy", "statistics"]
     queries = [
@@ -148,6 +146,9 @@ def v1(lat, lon):
 
     for query in queries:
         index = queries.index(query)
+        googlenews = GoogleNews()
+        googlenews.setlang('en')
+        googlenews = GoogleNews(start=week_ago_date,end=today_date)
         googlenews.search(query)
         results = googlenews.result()
         for i in range(10):
@@ -216,7 +217,7 @@ def v2(lat, lon):
         index = queries.index(query)
         googlenews.search(query)
         results = googlenews.result()
-        for i in range(1):
+        for i in range(2):
             urls[index].append(results[i]['link'])
             extractive_scores[index].append(lavaa.lavaa_extractive(query, results[i]['link']))
             abstractive_scores[index].append(lavaa.lavaa_abstractive(query, results[i]['link']))
