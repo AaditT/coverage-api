@@ -1,6 +1,7 @@
 from newspaper import fulltext
 import requests
 from nltk.corpus import wordnet   #Import wordnet from the NLTK
+import math
 
 def lavaa_extractive(query, url):
     lavaa = 0
@@ -14,8 +15,9 @@ def lavaa_extractive(query, url):
     for word in text_words:
         if word in query_words:
             lavaa += 1
-    return lavaa/text_words_len
-
+    s_query = 10*(lavaa/text_words_len)
+    return 1 / (1 + math.exp(-s_query))
+    
 def lavaa_abstractive(query, url):
     syn = list()
     ant = list()
@@ -33,4 +35,5 @@ def lavaa_abstractive(query, url):
     for word in text_words:
         if word in query_words or word in syn:
             lavaa += 1
-    return lavaa/text_words_len
+    s_query = 10*(lavaa/text_words_len)
+    return 1 / (1 + math.exp(-s_query))
