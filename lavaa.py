@@ -17,7 +17,7 @@ def lavaa_extractive(query, url):
             lavaa += 1
     s_query = 10*(lavaa/text_words_len)
     return 1 / (1 + math.exp(-s_query))
-    
+
 def lavaa_abstractive(query, url):
     syn = list()
     ant = list()
@@ -29,7 +29,10 @@ def lavaa_abstractive(query, url):
               if lemma.antonyms():    #When antonyms are available, add them into the list
                 ant.append(lemma.antonyms()[0].name())
     lavaa = 0
-    text = (fulltext(requests.get(url).text)).replace("\n", " ")
+    try:
+        text = (fulltext(requests.get(url).text)).replace("\n", " ")
+    except:
+        return 0
     text_words = text.split()
     text_words_len = len(text_words)
     for word in text_words:
