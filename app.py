@@ -151,7 +151,7 @@ def v1(lat, lon):
         googlenews = GoogleNews(start=week_ago_date,end=today_date)
         googlenews.search(query)
         results = googlenews.result()
-        for i in range(3):
+        for i in range(1):
             if lavaa.lavaa_abstractive(query, results[i]['link']) > 0.6:
                 urls[index].append(results[i]['link'])
 
