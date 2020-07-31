@@ -3,9 +3,8 @@ app = Flask(__name__)
 from GoogleNews import GoogleNews
 from datetime import datetime as dt
 import datetime
-import pprint
 from resp import *
-pp = pprint.PrettyPrinter(indent=4)
+import lavaa
 
 @app.route('/api/v1/<lat>/<lon>')
 def index(lat, lon):
@@ -14,6 +13,14 @@ def index(lat, lon):
 
     try:
         urls = [
+            [],
+            [],
+            [],
+            [],
+            [],
+        ]
+
+        scores = [
             [],
             [],
             [],
@@ -44,6 +51,8 @@ def index(lat, lon):
             results = googlenews.result()
             for i in range(10):
                 urls[index].append(results[i]['link'])
+                scores[index].append(lavaa.lavaa_extractive(query, results[i]['link']))
+
 
         success_string = "True"
 
@@ -65,18 +74,23 @@ def index(lat, lon):
         "data": {
             "policies": {
                 "urls": urls[0],
+                "scores": scores[0]
             },
             "education": {
                 "urls": urls[1],
+                "scores": scores[1]
             },
             "biology": {
                 "urls": urls[2],
+                "scores": scores[2]
             },
             "economy": {
                 "urls": urls[3],
+                "scores": scores[3]
             },
             "statistics": {
                 "urls": urls[4],
+                "scores": scores[4]
             },
         },
     }
