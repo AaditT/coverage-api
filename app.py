@@ -151,7 +151,7 @@ def v1(lat, lon):
         googlenews = GoogleNews(start=week_ago_date,end=today_date)
         googlenews.search(query)
         results = googlenews.result()
-        for i in range(10):
+        for i in range(3):
             urls[index].append(results[i]['link'])
 
 
