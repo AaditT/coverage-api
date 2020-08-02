@@ -1,4 +1,3 @@
-from newspaper import fulltext
 import requests
 from nltk.corpus import wordnet   #Import wordnet from the NLTK
 import math
