@@ -27,14 +27,14 @@ def docs():
     <h2> Welcome to the docs!
 
     <h4> API v1 </h4>
-    <code> /api/v1/lat/lon </code>
+    <code> /api/v1/county(region)/state(or country) </code>
       <p>
         Version 1 is optimized for speed. <br>
         Returns JSON object in following format <br>
         <code>
           { <br>
-           &nbsp; "lat": lat, <br>
-          &nbsp; "lon": lon, <br>
+           &nbsp; "county": county, <br>
+          &nbsp; "state": state, <br>
           &nbsp; "time": { <br>
            &nbsp; &nbsp; "timestamp": now, <br>
             &nbsp; }, <br>
@@ -60,15 +60,15 @@ def docs():
       </p>
 
       <h4> API v2 </h4>
-      <code> /api/v2/lat/lon </code>
+      <code> /api/v2/county/state </code>
       <p>
         Version 2 is optimized for querying metrics. <br>
         Returns JSON object in following format <br>
         <code>
           { <br>
           &nbsp; "success": True, <br>
-           &nbsp; "lat": lat, <br>
-          &nbsp; "lon": lon, <br>
+           &nbsp; "county": county, <br>
+          &nbsp; "state": state, <br>
           &nbsp; "time": { <br>
            &nbsp; &nbsp; "timestamp": now, <br>
             &nbsp; }, <br>
@@ -228,8 +228,8 @@ def v2(county, state):
 
 
     return {
-        "lat": lat,
-        "lon": lon,
+        "county": county,
+        "state": state,
         "success": success_string,
         "time": {
             "timestamp": now,
