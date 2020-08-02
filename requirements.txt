@@ -2,4 +2,5 @@ Flask
 gunicorn
 GoogleNews
 datetime
+newspaper3k
 nltk
