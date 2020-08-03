@@ -4,6 +4,7 @@ from GoogleNews import GoogleNews
 from datetime import datetime as dt
 import datetime
 import lavaa
+import json
 
 @app.route('/')
 def home():
@@ -123,7 +124,7 @@ def v1(county, state):
 
     location = (county + ", " + state)
 
-    urls = [[],[],[],[],[]]
+    urls = [[],[],[],[],[],[]]
 
     now = dt.now()
     today_date = now.strftime("%m/%d/%Y")
@@ -133,13 +134,14 @@ def v1(county, state):
     googlenews.setlang('en')
     googlenews = GoogleNews(start=week_ago_date,end=today_date)
 
-    categories = ["policies", "education", "biology", "economy", "statistics"]
+    categories = ["policies", "education", "biology", "economy", "statistics", "donations"]
     queries = [
         str(location) + " COVID-19 " + categories[0] + " news",
         str(location) + " COVID-19 " + categories[1] + " news",
         str(location) + " COVID-19 " + categories[2] + " news",
         str(location) + " COVID-19 " + categories[3] + " news",
-        str(location) + " COVID-19 " + categories[4] + " news"
+        str(location) + " COVID-19 " + categories[4] + " news",
+        str(location) + " COVID-19 " + categories[5]
     ]
 
     for query in queries:
@@ -149,7 +151,7 @@ def v1(county, state):
         googlenews = GoogleNews(start=week_ago_date,end=today_date)
         googlenews.search(query)
         results = googlenews.result()
-        for i in range(5):
+        for i in range(len(results)):
             urls[index].append(results[i]['link'])
 
 
@@ -157,13 +159,13 @@ def v1(county, state):
 
 
 
-    return {
+    data = {
         "county": county,
         "state": state,
         "success": success_string,
-        "time": {
-            "timestamp": now,
-        },
+        # "time": {
+        #     "timestamp": now,
+        # },
         "data": {
             "policies": {
                 "urls": urls[0],
@@ -180,8 +182,17 @@ def v1(county, state):
             "statistics": {
                 "urls": urls[4],
             },
+            "donations": {
+                "urls": urls[5],
+            },
         },
     }
+    data = json.dumps(data)
+    loaded_data = json.dumps(data)
+    # print(type(loaded_data))
+    print(loaded_data)
+    return loaded_data
+    
 
 @app.route('/api/v2/<county>/<state>')
 def v2(county, state):
@@ -201,13 +212,14 @@ def v2(county, state):
     googlenews.setlang('en')
     googlenews = GoogleNews(start=week_ago_date,end=today_date)
 
-    categories = ["policies", "education", "biology", "economy", "statistics"]
+    categories = ["policies", "education", "biology", "economy", "statistics", "donations"]
     queries = [
         str(location) + " coronavirus " + categories[0] + " news",
         str(location) + " coronavirus " + categories[1] + " news",
         str(location) + " coronavirus " + categories[2] + " news",
         str(location) + " coronavirus " + categories[3] + " news",
-        str(location) + " coronavirus " + categories[4] + " news"
+        str(location) + " coronavirus " + categories[4] + " news",
+        str(location) + " coronavirus " + categories[5]
     ]
 
     for query in queries:
@@ -217,7 +229,7 @@ def v2(county, state):
         googlenews = GoogleNews(start=week_ago_date,end=today_date)
         googlenews.search(query)
         results = googlenews.result()
-        for i in range(2):
+        for i in range(len(results)):
             urls[index].append(results[i]['link'])
             extractive_scores[index].append(lavaa.lavaa_extractive(query, results[i]['link']))
             abstractive_scores[index].append(lavaa.lavaa_abstractive(query, results[i]['link']))
@@ -270,6 +282,13 @@ def v2(county, state):
                     "abstractive": abstractive_scores[4]
                 }
             },
+            "donations": {
+                "urls": urls[5],
+                "scores": {
+                    "extractive": extractive_scores[5],
+                    "abstractive": abstractive_scores[5]
+                }
+            }
         },
     }
 
