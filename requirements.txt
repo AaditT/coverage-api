@@ -4,3 +4,5 @@ GoogleNews
 datetime
 newspaper3k
 nltk
+numpy
+scipy
