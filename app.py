@@ -187,10 +187,9 @@ def v1(county, state):
             },
         },
     }
-    data = json.dumps(data)
     loaded_data = json.dumps(data)
     # print(type(loaded_data))
-    print(loaded_data)
+    # print(loaded_data)
     return loaded_data
     
 
