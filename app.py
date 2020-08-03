@@ -149,7 +149,7 @@ def v1(county, state):
         googlenews = GoogleNews(start=week_ago_date,end=today_date)
         googlenews.search(query)
         results = googlenews.result()
-        for i in range(len(results)):
+        for i in range(5):
             urls[index].append(results[i]['link'])
 
 
