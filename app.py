@@ -1,131 +1,32 @@
-from flask import Flask
-app = Flask(__name__)
+from flask import *
 from GoogleNews import GoogleNews
 from datetime import datetime as dt
 import datetime
 import lavaa
 import json
+import threading
+
+app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return """
-    <h1> COVerage RESTful API </h1>
-
-    <h2> Welcome!
-
-    <h3><a href="/docs">Read the API documentation</a></h3>
-    <iframe src="https://giphy.com/embed/lXiRLb0xFzmreM8k8" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/vector-newspaper-flat-lXiRLb0xFzmreM8k8"></p>
-
-    """
+    return render_template("home.html")
 
 
 @app.route('/docs')
 def docs():
-    return """
-    <h3><a href="/"> <- Home </a></h3>
-    <h1> COVerage RESTful API </h1>
+    return render_template("docs.html")
 
-    <h2> Welcome to the docs!
 
-    <h4> API v1 </h4>
-    <code> /api/v1/county(region)/state(or country) </code>
-      <p>
-        Version 1 is optimized for speed. <br>
-        Returns JSON object in following format <br>
-        <code>
-          { <br>
-           &nbsp; "county": county, <br>
-          &nbsp; "state": state, <br>
-          &nbsp; "time": { <br>
-           &nbsp; &nbsp; "timestamp": now, <br>
-            &nbsp; }, <br>
-          &nbsp; "data": { <br>
-           &nbsp; &nbsp; "policies": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "education": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "biology": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "economy": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "statistics": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; }, <br>
-            &nbsp; }, <br>
-            }
-        </code>
-      </p>
-
-      <h4> API v2 </h4>
-      <code> /api/v2/county/state </code>
-      <p>
-        Version 2 is optimized for querying metrics. <br>
-        Returns JSON object in following format <br>
-        <code>
-          { <br>
-          &nbsp; "success": True, <br>
-           &nbsp; "county": county, <br>
-          &nbsp; "state": state, <br>
-          &nbsp; "time": { <br>
-           &nbsp; &nbsp; "timestamp": now, <br>
-            &nbsp; }, <br>
-          &nbsp; "data": { <br>
-           &nbsp; &nbsp; "policies": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "education": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "biology": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "economy": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-           &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-          &nbsp; &nbsp; "statistics": { <br>
-          &nbsp; &nbsp; &nbsp; "urls": [url1, url2, url3, etc], <br>
-          &nbsp; &nbsp; &nbsp; "scores": { <br>
-            &nbsp;  &nbsp; &nbsp; &nbsp; "extractive": [score1, score2, score3, etc], <br>
-          &nbsp;  &nbsp; &nbsp; &nbsp; "abstractive": [score1, score2, score3, etc], <br>
-          &nbsp; &nbsp; &nbsp; } <br>
-          &nbsp; &nbsp; }, <br>
-            &nbsp; }, <br>
-            }
-        </code>
-      </p>
-
-    """
-@app.route('/api/v1/<county>/<state>')
-def v1(county, state):
-
+@app.route('/api/v3/<county>/<state>')
+def v3(county, state):
     location = (county + ", " + state)
 
-    urls = [[],[],[],[],[],[]]
-
+    policy_urls = []
+    education_urls = []
+    biology_urls = []
+    economy_urls = []
+    stats_urls = []
     now = dt.now()
     today_date = now.strftime("%m/%d/%Y")
     week_ago_date = (now - datetime.timedelta(days = 7)).strftime("%m/%d/%Y")
@@ -141,19 +42,48 @@ def v1(county, state):
         str(location) + " COVID-19 " + categories[2] + " news",
         str(location) + " COVID-19 " + categories[3] + " news",
         str(location) + " COVID-19 " + categories[4] + " news",
-        str(location) + " COVID-19 " + categories[5]
+        str(location) + " COVID-19 " + categories[5] + " news"
     ]
 
-    for query in queries:
+    def querier(query):
         index = queries.index(query)
         googlenews = GoogleNews()
         googlenews.setlang('en')
         googlenews = GoogleNews(start=week_ago_date,end=today_date)
         googlenews.search(query)
         results = googlenews.result()
-        for i in range(len(results)):
-            urls[index].append(results[i]['link'])
+        if (index == 0):
+            for i in range(len(results)):
+                policy_urls.append(results[i]['link'])
+        elif (index == 1):
+            for i in range(len(results)):
+                education_urls.append(results[i]['link'])
+        elif (index == 2):
+            for i in range(len(results)):
+                biology_urls.append(results[i]['link'])
+        elif (index == 3):
+            for i in range(len(results)):
+                economy_urls.append(results[i]['link'])
+        elif (index == 4):
+            for i in range(len(results)):
+                stats_urls.append(results[i]['link'])
 
+    # Mulithreading
+    t1 = threading.Thread(target=querier, args=(queries[0],))
+    t2 = threading.Thread(target=querier, args=(queries[1],))
+    t3 = threading.Thread(target=querier, args=(queries[2],))
+    t4 = threading.Thread(target=querier, args=(queries[3],))
+    t5 = threading.Thread(target=querier, args=(queries[4],))
+    t1.start()
+    t2.start()
+    t3.start()
+    t4.start()
+    t5.start()
+    t1.join()
+    t2.join()
+    t3.join()
+    t4.join()
+    t5.join()
 
     success_string = "True"
 
@@ -168,22 +98,22 @@ def v1(county, state):
         # },
         "data": {
             "policies": {
-                "urls": urls[0],
+                "urls": policy_urls,
             },
             "education": {
-                "urls": urls[1],
+                "urls": education_urls,
             },
             "biology": {
-                "urls": urls[2],
+                "urls": biology_urls,
             },
             "economy": {
-                "urls": urls[3],
+                "urls": economy_urls,
             },
             "statistics": {
-                "urls": urls[4],
+                "urls": policy_urls,
             },
             "donations": {
-                "urls": urls[5],
+                "urls": stats_urls,
             },
         },
     }
@@ -191,7 +121,11 @@ def v1(county, state):
     # print(type(loaded_data))
     # print(loaded_data)
     return loaded_data
-    
+
+
+"""
+COVerage Formula - not in use, too time consuming
+- plan to add multithreading to improve speed
 
 @app.route('/api/v2/<county>/<state>')
 def v2(county, state):
@@ -290,6 +224,6 @@ def v2(county, state):
             }
         },
     }
-
+"""
 if __name__ == '__main__':
     app.run(debug=True)

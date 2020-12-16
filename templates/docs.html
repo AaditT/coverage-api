@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<style>
+  pre {
+	overflow: auto;
+	width: 500px;
+	}
+pre:hover {
+	position: relative;
+	width: 700px;
+	z-index: 99;
+	}
+  </style>
+<body>
+   <h4> Callback</h4>
+   <pre> /api/v3/county/state </pre>
+     Average latency: ~5000 ms
+     Returns JSON object in following format
+     <pre>
+       {
+        "success": True,
+         "county": county,
+        "state": state,
+        "time": {
+          "timestamp": now,
+          },
+        "data": {
+          "policies": {
+          "urls": [url1, url2, url3, etc],
+          "scores": {
+            "extractive": [score1, score2, score3, etc],
+            "abstractive": [score1, score2, score3, etc],
+          }
+         },
+         "education": {
+          "urls": [url1, url2, url3, etc],
+          "scores": {
+            "extractive": [score1, score2, score3, etc],
+            "abstractive": [score1, score2, score3, etc],
+          }
+         },
+         "biology": {
+          "urls": [url1, url2, url3, etc],
+          "scores": {
+            "extractive": [score1, score2, score3, etc],
+            "abstractive": [score1, score2, score3, etc],
+          }
+         },
+         "economy": {
+          "urls": [url1, url2, url3, etc],
+          "scores": {
+            "extractive": [score1, score2, score3, etc],
+            "abstractive": [score1, score2, score3, etc],
+          }
+           "scores": {
+            "extractive": [score1, score2, score3, etc],
+            "abstractive": [score1, score2, score3, etc],
+          }
+         },
+         "statistics": {
+          "urls": [url1, url2, url3, etc],
+          "scores": {
+            "extractive": [score1, score2, score3, etc],
+            "abstractive": [score1, score2, score3, etc],
+          }
+         },
+          },
+         }
+     </pre>
+</body>
+</html>
